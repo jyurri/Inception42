@@ -6,34 +6,58 @@ services:
     ports:
       - "443:443"
     volumes:
-        - ./wordpress:/var/www/html
+        - "wp:/wordpress"
     env_file:
       - .env
-    links:
-        - wordpress
+    networks:
+      - wordpress-nginx
     restart: always
+    depends_on:
+      - wordpress
 
-  mysql:
-    image: mariadb
+  mariadb:
+    build: ./mariadb
     ports:
         - '3306:3306'
     volumes:
         - ./db-data:/var/lib/mysql
-    environment:
-        - MYSQL_ROOT_PASSWORD=Strong password
+    env_file:
+      - .env
+    networks:
+      - wordpress-mariadb
     restart: always
   
   wordpress:
-    image: wordpress:4.7.1-php7.0-fpm
+    build: ./wordpress
     ports:
         - '9000:9000'
     volumes:
-        - ./wordpress:/var/www/html
-    environment:
-        - WORDPRESS_DB_NAME=wpdb
-        - WORDPRESS_TABLE_PREFIX=wp_
-        - WORDPRESS_DB_HOST=mysql
-        - WORDPRESS_DB_PASSWORD=Strong password
+        - "wp:/wordpress"
+    env_file:
+      - .env
     links:
-        - mysql
+        - mariadb
+    networks:
+      - wordpress-mariadb
+      - wordpress-nginx
+    depends_on:
+      - mariadb
     restart: always
+
+networks:
+  wordpress-nginx:
+  wordpress-mariadb:
+
+volumes:
+  database:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/jyurrita/Desktop/voulmesIncepion/db
+      o: bind
+  wp:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/jyurrita/Desktop/voulmesIncepion/wordpress
+      o: bind
