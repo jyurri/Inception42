@@ -2,7 +2,7 @@
 version: "3.8"
 services:
   nginx:
-    build: ./nginx
+    build: requirements/nginx
     ports:
       - "443:443"
     volumes:
@@ -16,11 +16,11 @@ services:
       - wordpress
 
   mariadb:
-    build: ./mariadb
+    build: requirements/mariadb
     ports:
         - '3306:3306'
     volumes:
-        - ./db-data:/var/lib/mysql
+        - database:/var/lib/mysql
     env_file:
       - .env
     networks:
@@ -28,7 +28,7 @@ services:
     restart: always
   
   wordpress:
-    build: ./wordpress
+    build: requirements/wordpress
     ports:
         - '9000:9000'
     volumes:
@@ -53,11 +53,11 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/jyurrita/Desktop/voulmesIncepion/db
+      device: ~/docker-volumes/mariadb
       o: bind
   wp:
     driver: local
     driver_opts:
       type: none
-      device: /home/jyurrita/Desktop/voulmesIncepion/wordpress
+      device: ~/docker-volumes/wordpress
       o: bind

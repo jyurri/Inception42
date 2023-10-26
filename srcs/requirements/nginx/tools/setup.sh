@@ -1,7 +1,7 @@
 #! /bin/sh
 
-if [ ! -f /etc/nginx/ssl/private_key.pem ]; then
-        openssl genpkey -algorithm RSA -out /etc/nginx/ssl/private_key.pem > /dev/null 2>&1
+if [ ! -f $PRIVKEY_PATH ]; then
+        openssl genpkey -algorithm RSA -out $PRIVKEY_PATH > /dev/null 2>&1
         echo "Private key generated."
 fi
 
