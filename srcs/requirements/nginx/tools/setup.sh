@@ -13,4 +13,4 @@ fi
 
 echo "Starting wordpress' NGINX webserver..."
 
-nginx
+nginx -g "daemon off;"

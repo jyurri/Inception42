@@ -53,11 +53,11 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: ~/docker-volumes/mariadb
+      device: ~/jyurrita/data/db
       o: bind
   wp:
     driver: local
     driver_opts:
       type: none
-      device: ~/docker-volumes/wordpress
+      device: ~/jyurrita/data/wordpress
       o: bind

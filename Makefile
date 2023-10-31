@@ -1,5 +1,5 @@
 VOLUMES := db wordpress
-VOL_DIR = $(HOME)/data
+VOL_DIR = $(HOME)/jyurrita/data
 VOLUME = $(addprefix $(VOL_DIR)/,$(VOLUMES))
 DOCKER_COMPOSE_PATH = ./srcs/docker-compose.yml
 
@@ -10,7 +10,8 @@ down:
 	docker compose -f $(DOCKER_COMPOSE_PATH) down 
 
 re:
-	rm -rf $(VOL_DIR)
+	sudo rm -rf $(VOL_DIR)
+	make down
 	make 
 
 
