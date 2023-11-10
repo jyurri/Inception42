@@ -6,7 +6,7 @@ services:
     ports:
       - "443:443"
     volumes:
-        - "wp:/wordpress"
+        - "wordpress_volume:/wordpress"
     env_file:
       - .env
     networks:
@@ -32,7 +32,7 @@ services:
     ports:
         - '9000:9000'
     volumes:
-        - "wp:/wordpress"
+        - "wordpress_volume:/wordpress"
     env_file:
       - .env
     links:
@@ -55,7 +55,7 @@ volumes:
       type: none
       device: ~/jyurrita/data/db
       o: bind
-  wp:
+  wordpress_volume:
     driver: local
     driver_opts:
       type: none

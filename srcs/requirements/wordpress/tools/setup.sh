@@ -4,6 +4,7 @@ check_connection() {
   mysql -u $MYSQL_USER -p$MYSQL_PASSWORD -h $MYSQL_HOST -e "SELECT 1;" 2>/dev/null
 }
 
+
 # install wordpress cli
 if [ ! -f "/usr/local/bin/wp" ]; then
   echo "Installing WP-CLI."
