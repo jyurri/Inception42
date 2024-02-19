@@ -35,8 +35,6 @@ services:
         - "wordpress_volume:/wordpress"
     env_file:
       - .env
-    links:
-        - mariadb
     networks:
       - wordpress-mariadb
       - wordpress-nginx
